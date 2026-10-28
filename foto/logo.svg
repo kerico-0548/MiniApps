@@ -2,24 +2,28 @@
   <defs>
     <path id="arcTop" d="M 106 256 A 150 150 0 0 1 406 256"/>
     <path id="arcBottom" d="M 96 256 A 160 160 0 0 0 416 256"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6F1FD"/>
+      <stop offset="1" stop-color="#ECE3FA"/>
+    </linearGradient>
   </defs>
   <!-- фон -->
-  <circle cx="256" cy="256" r="250" fill="#FBEDEE"/>
-  <circle cx="256" cy="256" r="232" fill="none" stroke="#E9A7B4" stroke-width="4"/>
-  <circle cx="256" cy="256" r="220" fill="none" stroke="#E9A7B4" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"/>
+  <circle cx="256" cy="256" r="250" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="232" fill="none" stroke="#A98BDA" stroke-width="4"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#A98BDA" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"/>
 
   <!-- капкейк -->
   <g transform="translate(256 262)">
     <!-- стаканчик -->
-    <path d="M -62 10 L 62 10 L 48 92 Q 46 100 38 100 L -38 100 Q -46 100 -48 92 Z" fill="#F3D9B8"/>
-    <g stroke="#E2BF94" stroke-width="3" stroke-linecap="round">
+    <path d="M -62 10 L 62 10 L 48 92 Q 46 100 38 100 L -38 100 Q -46 100 -48 92 Z" fill="#F1E2CC"/>
+    <g stroke="#DCC6A4" stroke-width="3" stroke-linecap="round">
       <line x1="-38" y1="16" x2="-30" y2="94"/>
       <line x1="-13" y1="16" x2="-10" y2="94"/>
       <line x1="13" y1="16" x2="10" y2="94"/>
       <line x1="38" y1="16" x2="30" y2="94"/>
     </g>
     <!-- крем -->
-    <path d="M -74 12 Q -86 -10 -60 -22 Q -70 -52 -34 -56 Q -30 -86 0 -86 Q 30 -86 34 -56 Q 70 -52 60 -22 Q 86 -10 74 12 Z" fill="#F4B9C5"/>
+    <path d="M -74 12 Q -86 -10 -60 -22 Q -70 -52 -34 -56 Q -30 -86 0 -86 Q 30 -86 34 -56 Q 70 -52 60 -22 Q 86 -10 74 12 Z" fill="#C6B0EC"/>
     <path d="M -50 -24 Q -10 -10 40 -30" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>
     <path d="M -30 -58 Q 0 -48 26 -60" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="5" stroke-linecap="round"/>
     <!-- посыпка -->
@@ -28,14 +32,14 @@
     <circle cx="-6" cy="-38" r="4" fill="#FFFFFF"/>
     <circle cx="48" cy="0" r="4" fill="#FFFFFF"/>
     <!-- вишенка-сердечко -->
-    <path d="M 0 -84 C -4 -98 -24 -100 -24 -84 C -24 -72 -8 -66 0 -58 C 8 -66 24 -72 24 -84 C 24 -100 4 -98 0 -84 Z" fill="#D9667F"/>
+    <path d="M 0 -84 C -4 -98 -24 -100 -24 -84 C -24 -72 -8 -66 0 -58 C 8 -66 24 -72 24 -84 C 24 -100 4 -98 0 -84 Z" fill="#7448B8"/>
   </g>
 
   <!-- надписи по кругу -->
-  <text font-family="Georgia, 'Times New Roman', serif" font-size="44" font-style="italic" fill="#B04A63" text-anchor="middle" letter-spacing="2">
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="44" font-style="italic" fill="#5B3796" text-anchor="middle" letter-spacing="2">
     <textPath href="#arcTop" startOffset="50%">Сладко у Светы</textPath>
   </text>
-  <text font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#B98A6E" text-anchor="middle" letter-spacing="6" dy="20">
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#8A78A8" text-anchor="middle" letter-spacing="6" dy="20">
     <textPath href="#arcBottom" startOffset="50%">ТОРТЫ · КАПКЕЙКИ · МОСКВА</textPath>
   </text>
 </svg>

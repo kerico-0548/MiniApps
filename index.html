@@ -9,14 +9,28 @@
    ===================================================================== */
 const ДАННЫЕ = {
   заголовок: "Сладко у Светы",
-  подзаголовок: "Домашние торты и капкейки в Москве, с любовью ❤️",
+  подзаголовок: "Домашние торты и капкейки на заказ в Москве",
   логотип: "foto/logo.svg",
-  текстНадКаталогом: "Выберите десерт и нажмите «Заказать» — откроется WhatsApp с готовым сообщением.",
+
+  кондитер: {
+    имя: "Светлана Анатольевна",
+    подпись: "Кондитер. Пеку дома, небольшими партиями и только под заказ."
+  },
+
+  // короткие плашки под заголовком
+  преимущества: ["Ручная работа", "Свежая выпечка к дате", "Москва"],
+
+  // блок «Как заказать»
+  шаги: [
+    "Выберите десерт в каталоге",
+    "Нажмите «Заказать» — откроется WhatsApp с готовым сообщением",
+    "Уточним дату, вес и оформление"
+  ],
 
   контакты: {
-    whatsapp: "+7 999 123-45-67",
-    телеграм: "svetlana",            // ник без значка @
-    текст: "Остались вопросы? Напишите мне — отвечу и помогу выбрать."
+    whatsapp: "+723123213121",
+    телеграм: "sladkousveti_bot",    // ник без значка @
+    текст: "Остались вопросы? Напишите — отвечу и помогу выбрать."
   },
 
   ассортимент: [
@@ -24,9 +38,9 @@ const ДАННЫЕ = {
       название: "Медовик",
       цена: "3 500 ₽",
       заЧто: "за 2 кг",
-      описание: "Классический медовый торт, восемь тонких коржей и нежный сметанный крем.",
+      описание: "Классический медовый торт: восемь тонких коржей и нежный сметанный крем.",
       фото: "foto/medovik.jpg",
-      заказ: "Здравствуйте, Светлана! Хочу заказать Медовик (3 500 ₽ за 2 кг). Дата: … Вес: …"
+      заказ: "Здравствуйте, Светлана Анатольевна! Хочу заказать Медовик (3 500 ₽ за 2 кг). Дата: … Вес: …"
     },
     {
       название: "Наполеон",
@@ -34,7 +48,7 @@ const ДАННЫЕ = {
       заЧто: "за 2 кг",
       описание: "Хрустящие слоёные коржи и заварной крем на сливочном масле.",
       фото: "foto/napoleon.jpg",
-      заказ: "Здравствуйте, Светлана! Хочу заказать Наполеон (3 800 ₽ за 2 кг). Дата: … Вес: …"
+      заказ: "Здравствуйте, Светлана Анатольевна! Хочу заказать Наполеон (3 800 ₽ за 2 кг). Дата: … Вес: …"
     },
     {
       название: "Капкейки",
@@ -42,7 +56,7 @@ const ДАННЫЕ = {
       заЧто: "за штуку, от 6 шт.",
       описание: "Восемь вкусов на выбор — соберите свой набор.",
       фото: "foto/kapkeyki.jpg",
-      заказ: "Здравствуйте, Светлана! Хочу заказать капкейки (350 ₽/шт., от 6 шт.). Дата: … Количество: … Вкусы: …"
+      заказ: "Здравствуйте, Светлана Анатольевна! Хочу заказать капкейки (350 ₽/шт., от 6 шт.). Дата: … Количество: … Вкусы: …"
     },
     {
       название: "Бенто-торт",
@@ -50,7 +64,7 @@ const ДАННЫЕ = {
       заЧто: "",
       описание: "Маленький торт в коробочке — с любой надписью на ваш вкус.",
       фото: "foto/bento.jpg",
-      заказ: "Здравствуйте, Светлана! Хочу заказать бенто-торт (1 900 ₽). Дата: … Надпись: …"
+      заказ: "Здравствуйте, Светлана Анатольевна! Хочу заказать бенто-торт (1 900 ₽). Дата: … Надпись: …"
     }
   ]
 };
@@ -63,28 +77,30 @@ const ДАННЫЕ = {
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root {
-    --bg: #FFF8F3;
+    --bg: #F8F5FC;
     --card: #FFFFFF;
-    --text: #4A3236;
-    --muted: #8C6E72;
-    --accent: #CF6A84;
-    --accent-strong: #B9506B;
-    --accent-soft: #FBE3E8;
-    --cream: #F7EBDD;
+    --text: #2E2440;
+    --muted: #726585;
+    --line: #E9E2F4;
+    --accent: #6F45B5;
+    --accent-strong: #573296;
+    --accent-soft: #EFE8FA;
+    --photo-bg: #EEE7F8;
     --on-accent: #FFFFFF;
-    --shadow: 0 6px 20px rgba(176, 74, 99, .10);
+    --shadow: 0 1px 2px rgba(46, 36, 64, .05), 0 8px 24px rgba(87, 50, 150, .08);
   }
   :root[data-theme="dark"] {
-    --bg: #241B1E;
-    --card: #33272B;
-    --text: #F6E9EC;
-    --muted: #C6A9AF;
-    --accent: #EFA3B5;
-    --accent-strong: #F4B9C6;
-    --accent-soft: #46323A;
-    --cream: #3B2E30;
-    --on-accent: #3A1F27;
-    --shadow: 0 6px 20px rgba(0, 0, 0, .35);
+    --bg: #17131F;
+    --card: #231D2E;
+    --text: #EFEAF7;
+    --muted: #B3A7C6;
+    --line: #342B42;
+    --accent: #B49BE3;
+    --accent-strong: #C9B6EE;
+    --accent-soft: #2F2640;
+    --photo-bg: #2A2236;
+    --on-accent: #1E1430;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .3);
   }
 
   * { box-sizing: border-box; }
@@ -94,98 +110,145 @@ const ДАННЫЕ = {
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 18px;
-    line-height: 1.45;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
   .wrap {
     max-width: 560px;
     margin: 0 auto;
-    padding: 20px 16px calc(32px + env(safe-area-inset-bottom));
+    padding: 24px 16px calc(28px + env(safe-area-inset-bottom));
   }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
 
-  header { text-align: center; padding: 8px 0 20px; }
-  header img { width: 120px; height: 120px; display: block; margin: 0 auto 12px; }
+  /* шапка */
+  header { text-align: center; padding: 4px 0 24px; }
+  header img { width: 112px; height: 112px; display: block; margin: 0 auto 14px; }
   h1 {
     font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
     font-weight: normal;
-    font-size: 34px;
-    line-height: 1.15;
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: .2px;
     margin: 0 0 8px;
     color: var(--accent-strong);
   }
-  .subtitle { margin: 0; font-size: 19px; color: var(--muted); }
-  .hint {
+  .subtitle { margin: 0 auto; max-width: 340px; font-size: 18px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; padding: 0; list-style: none; }
+  .chips li {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent-strong);
     background: var(--accent-soft);
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin: 0 0 20px;
-    font-size: 17px;
+    padding: 6px 12px;
+    border-radius: 999px;
   }
 
+  /* общие блоки */
   .card {
     background: var(--card);
-    border-radius: 24px;
-    overflow: hidden;
+    border-radius: 22px;
     box-shadow: var(--shadow);
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 4px 12px;
+  }
+
+  /* о кондитере */
+  .about { display: flex; gap: 14px; align-items: center; padding: 18px; }
+  .avatar {
+    flex: none;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 24px;
+  }
+  .about b { display: block; font-size: 19px; }
+  .about span { color: var(--muted); font-size: 16px; }
+
+  /* как заказать */
+  .steps { list-style: none; margin: 0; padding: 6px 18px; counter-reset: s; }
+  .steps li {
+    counter-increment: s;
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 12px 0;
+    font-size: 17px;
+  }
+  .steps li + li { border-top: 1px solid var(--line); }
+  .steps li::before {
+    content: counter(s);
+    flex: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 700;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: -1px;
+  }
+
+  /* карточки товаров */
+  .product { overflow: hidden; }
   .photo {
     aspect-ratio: 4 / 3;
-    background: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: var(--photo-bg);
+    display: flex; align-items: center; justify-content: center;
     color: var(--muted);
-    font-size: 22px;
-    font-style: italic;
     font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 22px;
   }
   .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .body { padding: 18px 18px 20px; }
-  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  h2 { margin: 0; font-size: 25px; line-height: 1.2; }
-  .price {
-    background: var(--accent-soft);
-    color: var(--accent-strong);
-    font-weight: 700;
-    font-size: 24px;
-    padding: 4px 14px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-  .per { color: var(--muted); font-size: 16px; margin-top: 4px; }
-  .desc { margin: 10px 0 18px; }
+  .row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  h2 { margin: 0; font-size: 24px; line-height: 1.2; font-family: Georgia, "Times New Roman", serif; font-weight: normal; }
+  .price { text-align: right; flex: none; }
+  .price b { display: block; font-size: 24px; line-height: 1.2; color: var(--accent-strong); white-space: nowrap; }
+  .price small { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .desc { margin: 10px 0 18px; color: var(--text); opacity: .9; }
 
+  /* кнопки */
   .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
     width: 100%;
-    min-height: 58px;
+    min-height: 56px;
     padding: 12px 20px;
     border: 0;
-    border-radius: 18px;
+    border-radius: 16px;
     background: var(--accent);
     color: var(--on-accent);
     font: inherit;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition: transform .08s ease, filter .15s ease;
   }
-  .btn:active { transform: scale(.98); filter: brightness(.95); }
+  .btn:active { transform: scale(.98); filter: brightness(.93); }
   .btn.secondary { background: var(--accent-soft); color: var(--accent-strong); }
-  .btn svg { width: 24px; height: 24px; flex: none; }
+  .btn svg { width: 22px; height: 22px; flex: none; }
 
-  .contacts { text-align: center; padding: 22px 18px 24px; }
-  .contacts h2 { margin-bottom: 8px; }
+  /* контакты */
+  .contacts { text-align: center; padding: 22px 18px 22px; }
+  .contacts h2 { margin-bottom: 6px; }
   .contacts p { margin: 0 0 16px; color: var(--muted); }
   .contacts .btn + .btn { margin-top: 12px; }
-  .phone { margin-top: 16px; font-size: 17px; color: var(--muted); }
+  .contacts dl { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 16px; }
+  .contacts dt { color: var(--muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; }
+  .contacts dd { margin: 0; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding: 8px 0 0; }
 </style>
 </head>
 <body>
@@ -194,18 +257,34 @@ const ДАННЫЕ = {
     <img id="logo" alt="">
     <h1 id="title"></h1>
     <p class="subtitle" id="subtitle"></p>
+    <ul class="chips" id="chips"></ul>
   </header>
 
-  <p class="hint" id="hint"></p>
+  <section class="card about">
+    <div class="avatar" id="avatar"></div>
+    <div><b id="baker"></b><span id="bakerNote"></span></div>
+  </section>
+
+  <div class="section-title">Как заказать</div>
+  <ol class="card steps" id="steps"></ol>
+
+  <div class="section-title">Каталог</div>
   <main id="list"></main>
 
-  <section class="contacts card body" id="contacts">
+  <div class="section-title">Контакты</div>
+  <section class="card contacts">
     <h2>Связаться со мной</h2>
     <p id="contactText"></p>
     <a class="btn" id="waBtn"></a>
     <a class="btn secondary" id="tgBtn"></a>
-    <div class="phone" id="phone"></div>
+    <dl>
+      <dt>Кондитер</dt><dd id="cName"></dd>
+      <dt>Телефон / WhatsApp</dt><dd id="cPhone"></dd>
+      <dt>Телеграм</dt><dd id="cTg"></dd>
+    </dl>
   </section>
+
+  <footer id="footer"></footer>
 </div>
 
 <script>
@@ -250,6 +329,7 @@ const ДАННЫЕ = {
   function waLink(text) {
     return 'https://wa.me/' + waNumber + (text ? '?text=' + encodeURIComponent(text) : '');
   }
+  const tgNick = ДАННЫЕ.контакты.телеграм.replace(/^@/, '');
 
   function el(tag, cls, text) {
     const node = document.createElement(tag);
@@ -257,20 +337,39 @@ const ДАННЫЕ = {
     if (text) node.textContent = text;
     return node;
   }
+  function setText(id, text) { document.getElementById(id).textContent = text; }
+  function setButton(id, icon, label, url) {
+    const b = document.getElementById(id);
+    b.innerHTML = icon;
+    b.appendChild(document.createTextNode(label));
+    bindLink(b, url);
+  }
 
   function render() {
-    document.title = ДАННЫЕ.заголовок;
+    const D = ДАННЫЕ;
+    document.title = D.заголовок;
+
     const logo = document.getElementById('logo');
-    logo.src = ДАННЫЕ.логотип;
-    logo.alt = ДАННЫЕ.заголовок;
+    logo.src = D.логотип;
+    logo.alt = D.заголовок;
     logo.onerror = function () { logo.remove(); };
-    document.getElementById('title').textContent = ДАННЫЕ.заголовок;
-    document.getElementById('subtitle').textContent = ДАННЫЕ.подзаголовок;
-    document.getElementById('hint').textContent = ДАННЫЕ.текстНадКаталогом;
+    setText('title', D.заголовок);
+    setText('subtitle', D.подзаголовок);
+
+    const chips = document.getElementById('chips');
+    (D.преимущества || []).forEach(function (t) { chips.appendChild(el('li', '', t)); });
+
+    const k = D.кондитер;
+    setText('avatar', k.имя.charAt(0));
+    setText('baker', k.имя);
+    setText('bakerNote', k.подпись);
+
+    const steps = document.getElementById('steps');
+    (D.шаги || []).forEach(function (t) { steps.appendChild(el('li', '', t)); });
 
     const list = document.getElementById('list');
-    ДАННЫЕ.ассортимент.forEach(function (item) {
-      const card = el('article', 'card');
+    D.ассортимент.forEach(function (item) {
+      const card = el('article', 'card product');
 
       const photo = el('div', 'photo');
       const img = document.createElement('img');
@@ -284,9 +383,11 @@ const ДАННЫЕ = {
       const body = el('div', 'body');
       const row = el('div', 'row');
       row.appendChild(el('h2', '', item.название));
-      row.appendChild(el('span', 'price', item.цена));
+      const price = el('div', 'price');
+      price.appendChild(el('b', '', item.цена));
+      if (item.заЧто) price.appendChild(el('small', '', item.заЧто));
+      row.appendChild(price);
       body.appendChild(row);
-      if (item.заЧто) body.appendChild(el('div', 'per', item.заЧто));
       body.appendChild(el('p', 'desc', item.описание));
 
       const btn = el('a', 'btn');
@@ -299,17 +400,14 @@ const ДАННЫЕ = {
       list.appendChild(card);
     });
 
-    const c = ДАННЫЕ.контакты;
-    document.getElementById('contactText').textContent = c.текст;
-    const wa = document.getElementById('waBtn');
-    wa.innerHTML = ICON_WA;
-    wa.appendChild(document.createTextNode('Написать в WhatsApp'));
-    bindLink(wa, waLink('Здравствуйте, Светлана!'));
-    const tgBtn = document.getElementById('tgBtn');
-    tgBtn.innerHTML = ICON_TG;
-    tgBtn.appendChild(document.createTextNode('Написать в Телеграм'));
-    bindLink(tgBtn, 'https://t.me/' + c.телеграм.replace(/^@/, ''));
-    document.getElementById('phone').textContent = c.whatsapp + ' · @' + c.телеграм.replace(/^@/, '');
+    const c = D.контакты;
+    setText('contactText', c.текст);
+    setButton('waBtn', ICON_WA, 'Написать в WhatsApp', waLink('Здравствуйте, ' + k.имя + '!'));
+    setButton('tgBtn', ICON_TG, 'Написать в Телеграм', 'https://t.me/' + tgNick);
+    setText('cName', k.имя);
+    setText('cPhone', c.whatsapp);
+    setText('cTg', '@' + tgNick);
+    setText('footer', '© ' + new Date().getFullYear() + ' ' + D.заголовок + ' · ' + k.имя);
   }
 
   applyTheme();
